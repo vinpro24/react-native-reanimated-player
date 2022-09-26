@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import LottieView from 'lottie-react-native';
+//import LottieView from 'lottie-react-native';
 import React, {
   forwardRef,
   useCallback,
@@ -43,6 +43,8 @@ import Video, {
   OnSeekData,
   VideoProperties,
 } from 'react-native-video';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Text } from './components';
 import { Ripple } from './components/ripple';
 import { TapControler } from './tap-controler';
@@ -59,7 +61,7 @@ const controlAnimteConfig = {
   duration: 200,
 };
 
-const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
+//const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
 
 export type VideoProps = VideoProperties & {
   showOnStart?: boolean;
@@ -90,6 +92,8 @@ export type VideoProps = VideoProperties & {
   disableControl?: boolean;
   renderBackIcon?: () => JSX.Element;
   renderFullScreenBackIcon?: () => JSX.Element;
+  renderPlayButton?: () => JSX.Element;
+  renderToggleAutoPlayButton?: () => JSX.Element;
   renderMore?: () => JSX.Element;
   renderFullScreen?: () => JSX.Element;
   onVideoPlayEnd?: () => void;
@@ -160,6 +164,8 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
       renderMore,
       renderFullScreen,
       renderFullScreenBackIcon,
+      renderPlayButton,
+      renderToggleAutoPlayButton,
       onVideoPlayEnd,
       onAutoPlayText = 'Autoplay is on',
       offAutoPlayText = 'Autoplay is off',
@@ -883,10 +889,14 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                       <TapControler
                         onPress={toggleAutoPlay}
                         style={controlStyle.autoPlay}>
-                        <AnimatedLottieView
-                          animatedProps={autoPlayAnimatedProps}
-                          source={require('./assets/lottie-auto-play.json')}
+                        {renderToggleAutoPlayButton ? (
+                        renderToggleAutoPlayButton()
+                      ) : (
+                        <Ionicons
+                          name='play'
+                          size={16}
                         />
+                      )}
                       </TapControler>
                     )}
                     {Boolean(onTapMore) && _renderMore()}
@@ -929,10 +939,14 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                       <TapControler
                         onPress={toggleAutoPlay}
                         style={controlStyle.autoPlay}>
-                        <AnimatedLottieView
-                          animatedProps={autoPlayAnimatedProps}
-                          source={require('./assets/lottie-auto-play.json')}
+                        {renderToggleAutoPlayButton ? (
+                        renderToggleAutoPlayButton()
+                      ) : (
+                        <Ionicons
+                          name='play'
+                          size={16}
                         />
+                      )}
                       </TapControler>
                     )}
                     {Boolean(onTapMore) && _renderMore()}
@@ -942,10 +956,15 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                   <TapControler
                     onPress={onPauseTapHandler}
                     style={controlStyle.pause}>
-                    <AnimatedLottieView
-                      animatedProps={playAnimatedProps}
-                      source={require('./assets/lottie-play.json')}
-                    />
+                    {renderPlayButton ? (
+                        renderPlayButton()
+                      ) : (
+                        <Ionicons
+                          name='play'
+                          size={16}
+                        />
+                      )}
+                    
                   </TapControler>
                 </View>
                 <Animated.View
@@ -978,9 +997,9 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                       {renderFullScreen ? (
                         renderFullScreen()
                       ) : (
-                        <AnimatedLottieView
-                          animatedProps={fullscreenAnimatedProps}
-                          source={require('./assets/lottie-fullscreen.json')}
+                        <MaterialIcons
+                          name='fullscreen'
+                          size={24}
                         />
                       )}
                     </TapControler>
@@ -1025,10 +1044,9 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                 style={[controlStyle.doubleTap, controlStyle.leftDoubleTap]}
                 containerStyle={[{ width: leftDoubleTapBoundary }]}>
                 <Animated.View style={getDoubleLeftStyle}>
-                  <LottieView
-                    source={require('./assets/lottie-seek-back.json')}
-                    autoPlay
-                    loop
+                  <Ionicons
+                    name={'play-back-sharp'}
+                    size={30}
                     style={controlStyle.backStep}
                   />
                   <Text tx="10s" isCenter color={palette.W(1)} t5 />
@@ -1046,10 +1064,9 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                 ]}
                 containerStyle={[{ width: leftDoubleTapBoundary }]}>
                 <Animated.View style={getDoubleRightStyle}>
-                  <LottieView
-                    source={require('./assets/lottie-seek-back.json')}
-                    autoPlay
-                    loop
+                  <Ionicons
+                    name={'play-back-sharp'}
+                    size={30}
                     style={[
                       controlStyle.backStep,
                       { transform: [{ rotate: '90deg' }] },
