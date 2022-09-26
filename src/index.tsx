@@ -930,7 +930,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                     {renderPlayButton ? (
                       renderPlayButton()
                     ) : (
-                      <Ionicons name="play" size={50} color='#fff'/>
+                      <Ionicons name={paused ? "play" : "pause"} size={50} color="#fff" />
                     )}
                   </TapControler>
                 </View>
@@ -964,7 +964,11 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                       {renderFullScreen ? (
                         renderFullScreen()
                       ) : (
-                        <MaterialIcons name="fullscreen" size={24} color='#fff' />
+                        <MaterialIcons
+                          name="fullscreen"
+                          size={24}
+                          color="#fff"
+                        />
                       )}
                     </TapControler>
                   </View>
@@ -1012,7 +1016,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                     name={'play-back-sharp'}
                     size={30}
                     style={controlStyle.backStep}
-                    color='#fff'
+                    color="#fff"
                   />
                   <Text tx="10s" isCenter color={palette.W(1)} t5 />
                 </Animated.View>
@@ -1032,7 +1036,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                   <Ionicons
                     name={'play-back-sharp'}
                     size={30}
-                    color='#fff'
+                    color="#fff"
                     style={[
                       controlStyle.backStep,
                       {transform: [{rotate: '90deg'}]},
