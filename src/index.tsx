@@ -29,9 +29,7 @@ import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import Animated, {
   cancelAnimation,
   runOnJS,
-  useAnimatedProps,
   useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
   withDelay,
   withTiming,
