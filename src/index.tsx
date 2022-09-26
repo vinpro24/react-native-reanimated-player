@@ -41,8 +41,8 @@ import Video, {
   OnSeekData,
   VideoProperties,
 } from 'react-native-video';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text} from './components';
 import {Ripple} from './components/ripple';
 import {TapControler} from './tap-controler';
@@ -866,9 +866,11 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                       <TapControler
                         onPress={toggleAutoPlay}
                         style={controlStyle.autoPlay}>
-                        {renderToggleAutoPlayButton
-                          ? renderToggleAutoPlayButton()
-                          : null}
+                        {renderToggleAutoPlayButton ? (
+                          renderToggleAutoPlayButton()
+                        ) : (
+                          <MaterialIcons name="replay" color="#fff" size={24} />
+                        )}
                       </TapControler>
                     )}
                     {Boolean(onTapMore) && _renderMore()}
@@ -911,9 +913,11 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                       <TapControler
                         onPress={toggleAutoPlay}
                         style={controlStyle.autoPlay}>
-                        {renderToggleAutoPlayButton
-                          ? renderToggleAutoPlayButton()
-                          : null}
+                        {renderToggleAutoPlayButton ? (
+                          renderToggleAutoPlayButton()
+                        ) : (
+                          <MaterialIcons name="replay" color="#fff" size={24} />
+                        )}
                       </TapControler>
                     )}
                     {Boolean(onTapMore) && _renderMore()}
@@ -923,7 +927,11 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                   <TapControler
                     onPress={onPauseTapHandler}
                     style={controlStyle.pause}>
-                    {renderPlayButton ? renderPlayButton() : null}
+                    {renderPlayButton ? (
+                      renderPlayButton()
+                    ) : (
+                      <Ionicons name="play" size={50} />
+                    )}
                   </TapControler>
                 </View>
                 <Animated.View
@@ -953,10 +961,11 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                     <TapControler
                       onPress={toggleFullScreen}
                       style={controlStyle.fullToggle}>
-                      {renderFullScreen
-                        ? renderFullScreen()
-                        : // <MaterialIcons name="fullscreen" size={24} />
-                          null}
+                      {renderFullScreen ? (
+                        renderFullScreen()
+                      ) : (
+                        <MaterialIcons name="fullscreen" size={24} />
+                      )}
                     </TapControler>
                   </View>
                   <Animated.View
@@ -999,11 +1008,11 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                 style={[controlStyle.doubleTap, controlStyle.leftDoubleTap]}
                 containerStyle={[{width: leftDoubleTapBoundary}]}>
                 <Animated.View style={getDoubleLeftStyle}>
-                  {/* <Ionicons
+                  <Ionicons
                     name={'play-back-sharp'}
                     size={30}
                     style={controlStyle.backStep}
-                  /> */}
+                  />
                   <Text tx="10s" isCenter color={palette.W(1)} t5 />
                 </Animated.View>
               </Ripple>
@@ -1019,14 +1028,14 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                 ]}
                 containerStyle={[{width: leftDoubleTapBoundary}]}>
                 <Animated.View style={getDoubleRightStyle}>
-                  {/* <Ionicons
+                  <Ionicons
                     name={'play-back-sharp'}
                     size={30}
                     style={[
                       controlStyle.backStep,
                       {transform: [{rotate: '90deg'}]},
                     ]}
-                  /> */}
+                  />
                   <Text tx="10s" isCenter color={palette.W(1)} t5 />
                 </Animated.View>
               </Ripple>
