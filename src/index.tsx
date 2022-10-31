@@ -94,6 +94,7 @@ export type VideoProps = VideoProperties & {
   renderToggleAutoPlayButton?: () => JSX.Element;
   renderMore?: () => JSX.Element;
   renderFullScreen?: () => JSX.Element;
+  bottomControl?: number
   onVideoPlayEnd?: () => void;
   onAutoPlayText?: string;
   offAutoPlayText?: string;
@@ -170,6 +171,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
       children,
       onPostProgress,
       onPostSeek,
+      bottomControl,
       ...rest
     },
     ref,
@@ -939,6 +941,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                     controlStyle.group,
                     controlStyle.bottomControls,
                     bottomControlStyle,
+                    bottomControl && !isFullScreen.value ? {bottom:bottomControl}:{}
                   ]}>
                   <View
                     style={[controlStyle.bottomControlGroup, controlStyle.row]}>
@@ -1045,7 +1048,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoProps>(
                   <Text tx="10s" isCenter color={palette.W(1)} t5 />
                 </Animated.View>
               </Ripple>
-              <Animated.View style={[styles.slider, bottomSliderStyle]}>
+              <Animated.View style={[styles.slider, bottomSliderStyle, bottomControl && !isFullScreen.value? {bottom:bottomControl}:{}]}>
                 {duration > 0 && (
                   <Slider
                     theme={theme}
